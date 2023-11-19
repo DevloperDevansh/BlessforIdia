@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter to God</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #letter-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        #letter-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #letter-text {
+            width: 100%;
+            height: 150px;
+        }
+
+        #send-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #confirmation-message {
+            margin-top: 10px;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        /* Media queries for responsiveness */
+        @media screen and (max-width: 768px) {
+            #letter-container {
+                width: 90%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            #letter-container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="letter-container" name="submit-to-google-sheet">
+        <img id="letter-image" src="India.jpg" alt="Letter to God">
+        <form id="letter-form">
+            <textarea name="Message" id="letter-text" placeholder="Write your letter to God..."></textarea><br>
+            <button id="send-button" type="button" onclick="sendLetter()">Send Letter</button>
+            <p id="confirmation-message"></p>
+        </form>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyTKv67vzNfkeYZNgKE7fp5hxOTfE2PvanPkyMldZ6AvnRzW-LL4b3j90O2AsFJwqIw/exec'
+        const form = document.getElementById('letter-form');
+
+        function sendLetter() {
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    console.log('Success!', response);
+                    document.getElementById("confirmation-message").innerText = "Your letter has been sent!";
+                })
+                .catch(error => console.error('Error!', error.message));
+        }
+    </script>
+
+</body>
+
+</html>
